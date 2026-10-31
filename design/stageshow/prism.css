@@ -1,0 +1,105 @@
+/*
+ * PRISM look for Stageshow (benji.org/stageshow).
+ *
+ * Maps Prism's real tokens (assets/prism-style-*.css :root) onto the
+ * Stageshow kit's --ss-* tokens, so any faux-UI demo of Prism reads as
+ * Prism and not as a generic dark mock.
+ *
+ * Use: <Stage className="look-prism" theme="dark" palette="accent" ...>
+ * Load design/stageshow/prism.css after the kit's stageshow.css.
+ *
+ * Source of truth is the shipped stylesheet. If Prism's :root changes,
+ * update this file from it; never nudge these by eye.
+ */
+
+.look-prism .ss-stage,
+.look-prism .ss-stage[data-theme="dark"] {
+  /* Surfaces. Prism is near-black with translucent white steps, not grays. */
+  --ss-canvas: #07080b;          /* --bg */
+  --ss-well: #0e0f12;            /* --well */
+  --ss-surface: #141416;         /* --panel */
+  --ss-chrome: rgba(8, 9, 12, 0.78); /* --header-bg */
+  --ss-raised: #1a1b1e;          /* --panel lifted one --surface-3 step */
+
+  /* Lines */
+  --ss-line: rgba(255, 255, 255, 0.1);        /* --border-strong */
+  --ss-line-faint: rgba(255, 255, 255, 0.06); /* --border */
+
+  /* Text: three steps, all from Prism */
+  --ss-text-strong: #e8e7e3;     /* --text */
+  --ss-text: #9d9da6;            /* --label */
+  --ss-text-faint: #82828d;      /* --muted */
+
+  /* Icons follow the silver control accent */
+  --ss-icon: #d4d6dc;            /* --accent */
+  --ss-icon-faint: #7c8089;      /* --accent-dim */
+
+  /* One lit colour. Prism's controls are silver; the only hue in the
+     chrome is the prism orange, with phosphor cyan as its second stop.
+     Accent is reserved for the single thing the story is about. */
+  --ss-accent: #ff6600;          /* --prism */
+  --ss-accent-2: #54e0ff;        /* --phos */
+  --ss-accent-soft: rgba(255, 122, 26, 0.16); /* --glow, lighter */
+  --ss-accent-text: #ff9e2e;     /* --heat: reads on near-black */
+
+  /* Status */
+  --ss-success: #54e0ff;         /* live / running reads as phosphor */
+  --ss-success-soft: rgba(84, 224, 255, 0.12);
+  --ss-success-text: #54e0ff;
+  --ss-warning: #ffe14d;         /* --flare */
+  --ss-warning-soft: rgba(255, 225, 77, 0.12);
+  --ss-warning-text: #ffe14d;
+
+  /* Type: Space Grotesk for UI, IBM Plex Mono for values. Both ship in
+     assets/ as woff2; the demo's host page must load prism-fonts-*.css. */
+  --ss-font: "Space Grotesk", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --ss-mono: "IBM Plex Mono", ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+
+  /* Shape: Prism is square. Every Prism part is radius 0.
+     The OS window keeps its own radius (that's macOS geometry, not Prism),
+     and pill stays round so avatars and status dots survive. */
+  --ss-radius-sm: 0px;
+  --ss-radius-md: 0px;
+  --ss-radius-lg: 0px;
+
+  /* Density: Prism's .btn is 32, compact rows 28 */
+  --ss-control: 32px;
+  --ss-row: 28px;
+
+  /* Placeholder inks: Prism's greys run cool */
+  --ss-ink-1: rgba(232, 231, 227, 0.16);
+  --ss-ink-2: rgba(232, 231, 227, 0.12);
+  --ss-ink-3: rgba(232, 231, 227, 0.09);
+  --ss-ink-4: rgba(232, 231, 227, 0.06);
+  --ss-ink-5: rgba(232, 231, 227, 0.04);
+}
+
+/* Prism's section labels: uppercase, tracked, bold. Use on fieldset-style
+   headings inside a demo so the panel reads as Prism's editor. */
+.look-prism .prism-legend {
+  font: 700 11px/1 var(--ss-font);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ss-text-strong);
+}
+
+/* Prism's machined button face: grain, top edge light, bottom edge dark,
+   a faint chromatic fringe. Apply to a kit button to make it Prism's. */
+.look-prism .prism-btn {
+  height: var(--ss-control);
+  padding: 0 16px;
+  font: 600 12px/1 var(--ss-font);
+  color: var(--ss-text-strong);
+  border: 1px solid var(--ss-line-faint);
+  border-radius: 0;
+  background-color: rgba(255, 255, 255, 0.045);
+  background-image:
+    repeating-linear-gradient(90deg, rgba(255, 255, 255, 0.012) 0 1px, transparent 1px 4px),
+    radial-gradient(120% 90% at 28% -12%, rgba(255, 255, 255, 0.075), rgba(255, 255, 255, 0.018) 52%, transparent 72%);
+  box-shadow:
+    inset 0 1px 0 rgba(220, 232, 255, 0.12),
+    inset 0 -1px 0 rgba(12, 8, 5, 0.46),
+    inset 1px 0 0 rgba(255, 214, 190, 0.045),
+    inset -1px 0 0 rgba(190, 216, 255, 0.055),
+    0 1px 2px rgba(0, 0, 0, 0.45);
+}
